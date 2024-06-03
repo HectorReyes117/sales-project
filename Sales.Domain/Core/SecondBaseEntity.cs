@@ -2,7 +2,11 @@
 
 public class SecondBaseEntity
 {
-    public DateTime FechaRegistro { get; set; }
+    public SecondBaseEntity()
+    {
+        this.FechaRegistro = DateTime.Now;
+    }
+    public DateTime FechaRegistro { get; set; } 
 
     public int IdUsuarioCreacion { get; set; }
 }

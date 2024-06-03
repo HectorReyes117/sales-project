@@ -2,6 +2,10 @@
 
 public class BaseEntity : SecondBaseEntity
 {
+    public BaseEntity()
+    {
+        this.Eliminado = false;
+    }
     public DateTime? FechaMod { get; set; }
 
     public int? IdUsuarioMod { get; set; }
