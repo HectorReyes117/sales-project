@@ -16,6 +16,6 @@ public sealed class Venta : SecondBaseEntity
     public decimal? ImpuestoTotal { get; set; }
     public decimal? Total { get; set; }
     public ICollection<DetalleVenta> DetalleVenta { get; set; } = new List<DetalleVenta>();
-    public TipoDocumentoVenta? IdTipoDocumentoVentaNavigation { get; set; }
-    public Usuario? IdUsuarioNavigation { get; set; }
+    public TipoDocumentoVenta? TipoDocumentoVenta { get; set; }
+    public Usuario? Usuario { get; set; }
 }

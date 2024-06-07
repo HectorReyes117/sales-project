@@ -34,7 +34,7 @@ public class ProductoConfiguration : IEntityTypeConfiguration<Producto>
             .HasMaxLength(500)
             .IsUnicode(false);
 
-        builder.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Productos)
+        builder.HasOne(d => d.Categoria).WithMany(p => p.Productos)
             .HasForeignKey(d => d.IdCategoria)
             .HasConstraintName("FK__Producto__IdCate__5EBF139D");
     }

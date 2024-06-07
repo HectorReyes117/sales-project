@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Domain", "Sales.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Infraestructure", "Sales.Infraestructure\Sales.Infraestructure.csproj", "{07E06B69-E08D-42AE-AD79-5979C34831BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Api", "Sales.Api\Sales.Api.csproj", "{7A1937EE-F6DA-4BF0-8DD4-84EE6D0883CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.IOC", "Sales.IOC\Sales.IOC.csproj", "{FE440D47-24B2-4140-AE8A-EFDB13E916AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{07E06B69-E08D-42AE-AD79-5979C34831BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07E06B69-E08D-42AE-AD79-5979C34831BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07E06B69-E08D-42AE-AD79-5979C34831BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A1937EE-F6DA-4BF0-8DD4-84EE6D0883CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A1937EE-F6DA-4BF0-8DD4-84EE6D0883CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A1937EE-F6DA-4BF0-8DD4-84EE6D0883CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A1937EE-F6DA-4BF0-8DD4-84EE6D0883CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE440D47-24B2-4140-AE8A-EFDB13E916AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE440D47-24B2-4140-AE8A-EFDB13E916AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE440D47-24B2-4140-AE8A-EFDB13E916AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE440D47-24B2-4140-AE8A-EFDB13E916AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -16,5 +16,5 @@ public sealed class Producto : BaseEntity
     public string? NombreImagen { get; set; }
     public decimal? Precio { get; set; }
     public bool? EsActivo { get; set; }
-    public Categoria? IdCategoriaNavigation { get; set; }
+    public Categoria? Categoria { get; set; }
 }
