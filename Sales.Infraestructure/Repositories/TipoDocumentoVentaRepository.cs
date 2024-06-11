@@ -18,7 +18,7 @@ public class TipoDocumentoVentaRepository : Repository<TipoDocumentoVenta>, ITip
     {
         ArgumentNullException.ThrowIfNull(entity, "La entidad no puede ser nula.");
         
-        if (!(await base.Exist(ct => ct.Descripcion == entity.Descripcion)))
+        if (await base.Exist(ct => ct.Descripcion == entity.Descripcion))
         {
             throw new TipoDocumentoVentaException("El documento debe ser ùnico.");
         }

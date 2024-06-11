@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Sales.Domain.Entities;
+﻿using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
@@ -19,7 +18,7 @@ public class CategoriaRepository : Repository<Categoria>, ICategoriaRepository
     {
         ArgumentNullException.ThrowIfNull(entity, "La entidad categoria no puede ser nula.");
         
-        if (!(await base.Exist(ct => ct.Descripcion == entity.Descripcion)))
+        if (await base.Exist(ct => ct.Descripcion == entity.Descripcion))
         {
             throw new CategoriaException("La categoria debe ser ùnica.");
         }

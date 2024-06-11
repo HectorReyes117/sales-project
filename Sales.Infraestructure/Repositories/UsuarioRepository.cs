@@ -18,7 +18,7 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
     {
         ArgumentNullException.ThrowIfNull(entity, "La entidad usuario no puede ser nula.");
         
-        if (!(await base.Exist(ct => ct.Nombre == entity.Nombre)))
+        if (await base.Exist(ct => ct.Nombre == entity.Nombre))
         {
             throw new UsuarioException("El usuario debe ser ùnico.");
         }

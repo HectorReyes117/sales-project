@@ -45,7 +45,7 @@ public class ProductoRepository : Repository<Producto>, IProductoRepository
     {
         ArgumentNullException.ThrowIfNull(entity, "La entidad no puede ser nula.");
         
-        if (!(await base.Exist(ct => ct.Descripcion == entity.Descripcion)))
+        if (await base.Exist(ct => ct.Descripcion == entity.Descripcion))
         {
             throw new ProductException("El producto debe ser ùnico.");
         }
