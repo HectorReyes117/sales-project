@@ -14,6 +14,7 @@ public class CategoriaRepositoryTest
     
     public CategoriaRepositoryTest()
     {
+        // Todo create abstraction of this code
         var options = new DbContextOptionsBuilder<SalesContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
