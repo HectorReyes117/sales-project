@@ -4,7 +4,7 @@ using Sales.Infraestructure.Repositories;
 
 namespace Sales.IOC.Dependencies.Repositories;
 
-public static class ProductRepositoryExtension
+public static class ProductRepositoryDependency
 {
     public static IServiceCollection RegisterProductRepository(this IServiceCollection services)
     {
