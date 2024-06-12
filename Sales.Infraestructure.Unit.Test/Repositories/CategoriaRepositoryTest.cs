@@ -4,23 +4,20 @@ using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
 using Sales.Infraestructure.Repositories;
+using Sales.Infraestructure.test.AbstractionsTests;
+using Sales.Infraestructure.test.AbstractionsTests.Implementations;
 
 namespace Sales.Infraestructure.test.Repositories;
 
-public class CategoriaRepositoryTest
+public class CategoriaRepositoryTest : IDisposable
 {
     private readonly SalesContext _context;
     private readonly ICategoriaRepository _categoriaRepository;
     
     public CategoriaRepositoryTest()
     {
-        // Todo create abstraction of this code
-        var options = new DbContextOptionsBuilder<SalesContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-            .Options;
-
-        _context = new SalesContext(options);
-        _context.Database.EnsureCreated();
+        IDbInMemory context = new DbInMemory();
+        _context = context.CreateContext();
         _categoriaRepository = new CategoriaRepository(_context);
     }    
     
@@ -179,4 +176,8 @@ public class CategoriaRepositoryTest
     }
 
 
+    public void Dispose()
+    {
+        _context.Dispose();
+    }
 }
