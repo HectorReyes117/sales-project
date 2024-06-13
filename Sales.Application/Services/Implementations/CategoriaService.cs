@@ -26,12 +26,9 @@ public class CategoriaService : ICategoriaService
 
     public async Task Save(CategoriaCreationDto category)
     {
-         await _validator.ValidateAndThrowAsync(category);
-
-    
+        await _validator.ValidateAndThrowAsync(category);
         Categoria cate = _mapper.Map<Categoria>(category);
         await _categoriaRepository.Save(cate);    
-        
     }
 
     public Task Save(List<CategoriaCreationDto> categories)

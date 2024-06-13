@@ -1,5 +1,6 @@
 using Sales.Application.Middlewares;
 using Sales.IOC.Dependencies;
+using Sales.IOC.Dependencies.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseMiddleware<FluentValidationMiddleware>();
+app.RegisterMiddlewares();
 
 app.MapControllers();
 
