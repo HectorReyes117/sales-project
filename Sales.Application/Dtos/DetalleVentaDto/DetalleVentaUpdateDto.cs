@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Sales.Application.Dtos.DetalleVentaDto;
 
-namespace Sales.Domain.Entities;
-
-public sealed class DetalleVenta
+public class DetalleVentaUpdateDto
 {
     public int Id { get; set; }
     public int? IdVenta { get; set; }
@@ -14,5 +11,4 @@ public sealed class DetalleVenta
     public int? Cantidad { get; set; }
     public decimal? Precio { get; set; }
     public decimal? Total { get; set; }
-    public Venta? Venta { get; set; }
 }

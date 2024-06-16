@@ -17,19 +17,22 @@ public static class BaseRegisterServices
         
         // register repositories
         services
-            .RegisterProductRepository()
-            .RegisterVentaRepository()
-            .RegisterCategoriaRepository();
+            .RegisterRepositories();
         
         //register services
         services
-            .RegisterCategoriaService();
+            .RegisterApplicationServices();
         
         // register mappers
         services.RegisterMapper();
         
         //register validations
         services
-            .RegisterCategoriaValidations();
+            .RegisterCategoriaValidations()
+            .RegisterVentaValidations()
+            .RegisterDetalleVentaValidations()
+            .RegisterUsuarioValidations()
+            .RegisterTipoDocumentoVentaValidations()
+            .RegisterProductValidations();
     }
 }

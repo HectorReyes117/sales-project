@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sales.Application.Dtos.CategoriesDto;
+using Sales.Application.Dtos.DetalleVentaDto;
 using Sales.Application.Services;
 using Sales.Infraestructure.Exceptions;
 
@@ -7,22 +7,22 @@ namespace Sales.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CategoriaController : ControllerBase
+public class DetalleVentaController : ControllerBase
 {
-    private readonly ICategoriaService _categoriaService;
+    private readonly IDetalleVentaService _detalleVentaService;
     
-    public CategoriaController(ICategoriaService categoriaService)
+    public DetalleVentaController(IDetalleVentaService detalleVentaService)
     {
-        _categoriaService = categoriaService;
+        _detalleVentaService = detalleVentaService;
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetAllCategories()
+    public async Task<ActionResult> GetAllDetalleVentas()
     {
         try
         {
-            var categories = await _categoriaService.GetAll();
-            return Ok(categories);
+            var detalleVentas = await _detalleVentaService.GetAll();
+            return Ok(detalleVentas);
         }
         catch (Exception e)
         {
@@ -31,29 +31,29 @@ public class CategoriaController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult> SaveCategory(CategoriaCreationDto categoriaCreationDto)
+    public async Task<ActionResult> SaveDetalleVenta(DetalleVentaCreationDto detalleVentaCreationDto)
     {
         try
         {
-            await _categoriaService.Save(categoriaCreationDto);
+            await _detalleVentaService.Save(detalleVentaCreationDto);
             return Ok("Creado satisfactoriamente.");
         }
         catch (ArgumentNullException e )
         {
             return StatusCode(500, new { message = e.Message });
         }
-        catch(CategoriaException e)
+        catch(DetalleVentaException e)
         {
             return StatusCode(500, new { message = e.Message });
         }
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateCategory(CategoriaUpdateDto categoriaUpdateDto)
+    public async Task<ActionResult> UpdateDetalleVenta(DetalleVentaUpdateDto detalleVentaUpdateDto)
     {
         try
         {
-            await _categoriaService.Update(categoriaUpdateDto);
+            await _detalleVentaService.Update(detalleVentaUpdateDto);
             return Ok("Actualizado satisfactoriamente.");
         }
         catch (ArgumentNullException e)
@@ -63,13 +63,13 @@ public class CategoriaController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult> GetCategoryById(int id)
+    public async Task<ActionResult> GetDetalleVentaById(int id)
     {
         try
         {
-            return Ok(await _categoriaService.Get(id));
+            return Ok(await _detalleVentaService.Get(id));
         }
-        catch (CategoriaException e)
+        catch (DetalleVentaException e)
         {
             return StatusCode(404, new { message = e.Message });
         }

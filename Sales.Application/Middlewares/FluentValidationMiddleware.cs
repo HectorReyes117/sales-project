@@ -26,13 +26,13 @@ public class FluentValidationMiddleware
             context.Response.ContentType = "application/json";
 
             var errors = ex.Errors
-                .Select(failure => new
-                {
-                    failure.PropertyName,
-                    failure.ErrorMessage
-                });
+                .GroupBy(x => x.PropertyName)    
+                .ToDictionary(
+                    g => g.Key,
+                   g => g.Select(x => x.ErrorMessage).ToArray()
+                );
 
-            var response = new { errors = errors };
+            var response = errors;
 
             await context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }

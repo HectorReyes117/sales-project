@@ -1,5 +1,8 @@
-﻿using Sales.Domain.Entities;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
+using Sales.Domain.Models;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
 
@@ -13,7 +16,24 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
     {
         _context = context;
     }
-    
+
+    public async Task<List<UsuarioModel>> GetAllUsers()
+    {
+        var users = await (from us in _context.Usuarios
+            select new UsuarioModel()
+            {
+                Id = us.Id,
+                Nombre = us.Nombre,
+                Correo = us.Correo,
+                Telefono = us.Telefono,
+                UrlFoto = us.UrlFoto,
+                NombreFoto = us.Nombre,
+                EsActivo = us.EsActivo
+            }).ToListAsync();
+        
+        return users;
+    }
+
     public override async Task Save(Usuario entity)
     {
         ArgumentNullException.ThrowIfNull(entity, "La entidad usuario no puede ser nula.");

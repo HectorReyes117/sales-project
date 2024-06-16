@@ -10,9 +10,10 @@ namespace Sales.IOC.Dependencies.Validations;
 
 public static class CategoriaValidationDependency
 {
-    public static void RegisterCategoriaValidations(this IServiceCollection services)
+    public static IServiceCollection RegisterCategoriaValidations(this IServiceCollection services)
     { 
         services.AddValidatorsFromAssemblyContaining<CategoriaCreationDtoValidator>();
         services.AddValidatorsFromAssemblyContaining<CategoriaUpdateDtoValidator>();
+        return services;
     }
 }

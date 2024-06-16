@@ -36,7 +36,7 @@ public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
             .HasMaxLength(500)
             .IsUnicode(false);
 
-        builder.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuarios)
+        builder.HasOne(d => d.Rol).WithMany(p => p.Usuarios)
             .HasForeignKey(d => d.IdRol)
             .HasConstraintName("FK__Usuario__IdRol__619B8048");
     }

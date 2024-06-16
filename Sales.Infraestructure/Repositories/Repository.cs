@@ -45,8 +45,12 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         return await _entities.FindAsync(id);
     }
 
-    public virtual async Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> filter)
+    public virtual async Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>>? filter)
     {
+        if (filter is null)
+        {
+            return await _entities.ToListAsync();
+        }
         return await _entities.Where(filter).ToListAsync();
     }
 

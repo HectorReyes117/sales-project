@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using FluentValidation.Results;
 using Sales.Application.Dtos.CategoriesDto;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
@@ -12,16 +11,18 @@ public class CategoriaService : ICategoriaService
     private readonly ICategoriaRepository _categoriaRepository;
     private readonly IMapper _mapper;
     private readonly IValidator<CategoriaCreationDto> _validator;
+    private readonly IValidator<CategoriaUpdateDto> _validatorUpdate;
 
     public CategoriaService(
         ICategoriaRepository categoriaRepository, 
         IMapper mapper, 
-        IValidator<CategoriaCreationDto> validator
-        )
+        IValidator<CategoriaCreationDto> validator, 
+        IValidator<CategoriaUpdateDto> validatorUpdate)
     {
         _categoriaRepository = categoriaRepository;
         _mapper = mapper;
         _validator = validator;
+        _validatorUpdate = validatorUpdate;
     }
 
     public async Task Save(CategoriaCreationDto category)
@@ -31,28 +32,21 @@ public class CategoriaService : ICategoriaService
         await _categoriaRepository.Save(cate);    
     }
 
-    public Task Save(List<CategoriaCreationDto> categories)
+    public async Task Update(CategoriaUpdateDto category)
     {
-        throw new NotImplementedException();
+        await _validatorUpdate.ValidateAndThrowAsync(category);
+        Categoria cate = _mapper.Map<Categoria>(category);
+        cate.FechaMod = DateTime.Now;
+        await _categoriaRepository.Update(cate);
+    }
+    
+    public async Task<Categoria?> Get(int id)
+    {
+        return await _categoriaRepository.Get(id);
     }
 
-    public Task Update(CategoriaUpdateDto category)
+    public async Task<List<Categoria>> GetAll()
     {
-        throw new NotImplementedException();
-    }
-
-    public Task Update(List<CategoriaUpdateDto> categories)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Categoria?> Get(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<Categoria>> GetAll()
-    {
-        throw new NotImplementedException();
+        return await _categoriaRepository.GetAll(null!);
     }
 }
