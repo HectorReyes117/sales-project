@@ -10,4 +10,5 @@ public interface IUsuarioService
     Task Update(UsuarioUpdateDto usuario);
     Task<Usuario?> Get(int id);
     Task<List<UsuarioModel>> GetAll();
+    Task DeleteUser(int id);
 }

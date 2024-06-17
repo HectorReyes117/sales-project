@@ -75,4 +75,18 @@ public class UsuarioController : ControllerBase
             return StatusCode(404, new { message = e.Message });
         }
     }
+    
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteUserById(int id)
+    {
+        try
+        {
+            await _usuarioService.DeleteUser(id);
+            return Ok("Eliminado Satisfactoriamente");
+        }
+        catch (UsuarioException e)
+        {
+            return StatusCode(404, new { message = e.Message });
+        }
+    }
 }

@@ -20,6 +20,7 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
     public async Task<List<UsuarioModel>> GetAllUsers()
     {
         var users = await (from us in _context.Usuarios
+            where us.Eliminado == false
             select new UsuarioModel()
             {
                 Id = us.Id,
@@ -32,6 +33,14 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
             }).ToListAsync();
         
         return users;
+    }
+
+    public async Task DeleteUser(int id)
+    {
+        Usuario? user = await this.Get(id);
+        user!.FechaElimino = DateTime.Now;
+        user!.Eliminado = true;
+        await Update(user);
     }
 
     public override async Task Save(Usuario entity)

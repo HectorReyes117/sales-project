@@ -6,4 +6,5 @@ namespace Sales.Domain.Interfaces;
 public interface IUsuarioRepository : IRepository<Usuario>
 {
     Task<List<UsuarioModel>> GetAllUsers();
+    Task DeleteUser(int id);
 }

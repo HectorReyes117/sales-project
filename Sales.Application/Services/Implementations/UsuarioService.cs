@@ -50,4 +50,9 @@ public class UsuarioService : IUsuarioService
     {
         return await _usuarioRepository.GetAllUsers();
     }
+
+    public async Task DeleteUser(int id)
+    {   
+        await _usuarioRepository.DeleteUser(id);
+    }
 }
