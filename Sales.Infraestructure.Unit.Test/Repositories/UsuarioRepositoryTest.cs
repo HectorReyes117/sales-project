@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
+using Sales.Infraestructure.Mappers;
 using Sales.Infraestructure.Repositories;
 using Sales.Infraestructure.test.AbstractionsTests;
 using Sales.Infraestructure.test.AbstractionsTests.Implementations;
@@ -99,20 +101,20 @@ public class UsuarioRepositoryTest : IDisposable
     }
 
     [Fact]
-    public async Task Get_ShouldThrowException_WhenUsuarioNotFound()
+    public async Task GetByUserId_ShouldThrowException_WhenUsuarioNotFound()
     {
-        var exception = await Assert.ThrowsAsync<UsuarioException>(() => _usuarioRepository.Get(999));
+        var exception = await Assert.ThrowsAsync<UsuarioException>(() => _usuarioRepository.GetByUserId(999));
         Assert.Equal("Usuario no encontrada", exception.Message);
     }
 
     [Fact]
-    public async Task Get_ShouldReturnUsuario_WhenUsuarioExists()
+    public async Task GetByUserId_ShouldReturnUsuario_WhenUsuarioExists()
     {
         // Arrange
         await _usuarioRepository.Save(_usuario);
 
         // Act
-        var result = await _usuarioRepository.Get(_usuario.Id);
+        var result = await _usuarioRepository.GetByUserId(_usuario.Id);
 
         // Assert
         Assert.NotNull(result);

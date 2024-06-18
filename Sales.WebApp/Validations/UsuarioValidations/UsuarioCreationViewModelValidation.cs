@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Sales.Application.Dtos.UsuarioDto;
+using Sales.WebApp.Models.Usuario;
 
 namespace Sales.WebApp.Validations.UsuarioValidations;
 
-public class UsuarioCreationDtoValidation : AbstractValidator<UsuarioCreationDto>
+public class UsuarioCreationDtoValidation : AbstractValidator<UsuarioCreationViewModel>
 {
     public UsuarioCreationDtoValidation()
     {

@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
-using Sales.Application.Dtos.VentaDto;
+using Sales.WebApp.Models.Venta;
 using Sales.WebApp.Validations.DetalleVentaValidations;
 
 namespace Sales.WebApp.Validations.VentaValidations;
 
-public class VentaCreationDtoValidation : AbstractValidator<VentaCreationDto>
+public class VentaCreationDtoValidation : AbstractValidator<VentaCreationViewModel>
 {
     // Todo refactoring to reuse in VentaUpdateDtoValidation
     public VentaCreationDtoValidation()
@@ -58,6 +58,6 @@ public class VentaCreationDtoValidation : AbstractValidator<VentaCreationDto>
                 .WithMessage("Debe ser mayor o igual a cero");
         
         RuleForEach(v => v.DetalleVenta)
-            .SetValidator(new DetalleVentaCreationDtoValidation());
+            .SetValidator(new DetalleVentaCreationViewModelValidation());
     }
 }

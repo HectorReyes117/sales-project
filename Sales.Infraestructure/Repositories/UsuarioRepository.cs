@@ -1,10 +1,12 @@
 ﻿using System.Linq.Expressions;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Domain.Models;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
+using Sales.Infraestructure.Extension;
 
 namespace Sales.Infraestructure.Repositories;
 
@@ -29,7 +31,9 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
                 Telefono = us.Telefono,
                 UrlFoto = us.UrlFoto,
                 NombreFoto = us.Nombre,
-                EsActivo = us.EsActivo
+                EsActivo = us.EsActivo,
+                Eliminado = us.Eliminado,
+                Clave = us.Clave
             }).ToListAsync();
         
         return users;
@@ -83,7 +87,7 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
         await base.Update(entities);
     }
 
-    public override async Task<Usuario?> Get(int id)
+    public async Task<UsuarioModel?> GetByUserId(int id)
     {
         var user = await base.Get(id);
 
@@ -92,6 +96,6 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
             throw new UsuarioException("Usuario no encontrada");
         }
 
-        return user;
+        return user.MapTo<UsuarioModel>();
     }
 }

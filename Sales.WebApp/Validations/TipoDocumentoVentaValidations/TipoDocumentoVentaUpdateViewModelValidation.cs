@@ -1,12 +1,18 @@
 ﻿using FluentValidation;
-using Sales.Application.Dtos.TipoDocumentoVentaDto;
+using Sales.WebApp.Models.TipoDocumentoVenta;
 
 namespace Sales.WebApp.Validations.TipoDocumentoVentaValidations;
 
-public class TipoDocumentoVentaCreationDtoValidation : AbstractValidator<TipoDocumentoVentaCreationDto>
+public class TipoDocumentoVentaUpdateDtoValidation : AbstractValidator<TipoDocumentoVentaUpdateViewModel>
 {
-    public TipoDocumentoVentaCreationDtoValidation()
+    public TipoDocumentoVentaUpdateDtoValidation()
     {
+        RuleFor(x => x.Id)
+            .NotNull()
+                .WithMessage("El id no puede estar nulo")
+            .GreaterThan(0)
+                .WithMessage("El id debe ser mayor que cero");
+        
         RuleFor(x => x.Descripcion)
             .NotNull()
                 .WithMessage("La Descripción no puede ser nula")

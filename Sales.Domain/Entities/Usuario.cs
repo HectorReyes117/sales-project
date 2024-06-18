@@ -14,8 +14,7 @@ public sealed class Usuario : BaseEntity
     public string? UrlFoto { get; set; }
     public string? NombreFoto { get; set; }
     public string? Clave { get; set; }
-
-    public bool? EsActivo { get; set; }
+    public bool EsActivo { get; set; }
     public Rol? Rol { get; set; }
     public ICollection<Venta> Venta { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿namespace Sales.Domain.Models;
+﻿namespace Sales.WebApp.Models.Usuario;
 
 public class UsuarioModel
 {

@@ -38,12 +38,13 @@ public class UsuarioService : IUsuarioService
     {
         await _validatorUpdate.ValidateAndThrowAsync(usuario);
         Usuario user = _mapper.Map<Usuario>(usuario);
+        user.FechaMod = DateTime.Now;
         await _usuarioRepository.Update(user);
     }
 
-    public async Task<Usuario?> Get(int id)
+    public async Task<UsuarioModel?> Get(int id)
     {
-        return await _usuarioRepository.Get(id);
+        return await _usuarioRepository.GetByUserId(id);
     }
 
     public async Task<List<UsuarioModel>> GetAll()

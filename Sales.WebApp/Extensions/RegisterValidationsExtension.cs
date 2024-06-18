@@ -12,12 +12,12 @@ public static class RegisterValidationsExtension
 {
     public static IServiceCollection RegisterValidations(this IServiceCollection services)
     {
-        services.AddValidatorsFromAssemblyContaining<CategoriaCreationDtoValidator>();
-        services.AddValidatorsFromAssemblyContaining<CategoriaUpdateDtoValidator>();
-        services.AddValidatorsFromAssemblyContaining<DetalleVentaCreationDtoValidation>();
-        services.AddValidatorsFromAssemblyContaining<DetalleVentaUpdateDtoValidation>();
-        services.AddValidatorsFromAssemblyContaining<ProductoCreationDtoValidation>();
-        services.AddValidatorsFromAssemblyContaining<ProductoUpdateDtoValidation>();
+        services.AddValidatorsFromAssemblyContaining<CategoriaCreationViewModelValidator>();
+        services.AddValidatorsFromAssemblyContaining<CategoriaUpdateViewModelValidator>();
+        services.AddValidatorsFromAssemblyContaining<DetalleVentaCreationViewModelValidation>();
+        services.AddValidatorsFromAssemblyContaining<DetalleVentaUpdateViewModelValidation>();
+        services.AddValidatorsFromAssemblyContaining<ProductoCreationViewModelValidation>();
+        services.AddValidatorsFromAssemblyContaining<ProductoUpdateViewModelValidation>();
         services.AddValidatorsFromAssemblyContaining<TipoDocumentoVentaCreationDtoValidation>();
         services.AddValidatorsFromAssemblyContaining<TipoDocumentoVentaUpdateDtoValidation>();
         services.AddValidatorsFromAssemblyContaining<UsuarioCreationDtoValidation>();

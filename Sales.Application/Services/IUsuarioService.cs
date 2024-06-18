@@ -8,7 +8,7 @@ public interface IUsuarioService
 {
     Task Save(UsuarioCreationDto usuario);
     Task Update(UsuarioUpdateDto usuario);
-    Task<Usuario?> Get(int id);
+    Task<UsuarioModel?> Get(int id);
     Task<List<UsuarioModel>> GetAll();
     Task DeleteUser(int id);
 }

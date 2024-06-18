@@ -1,12 +1,18 @@
 ﻿using FluentValidation;
-using Sales.Application.Dtos.DetalleVentaDto;
+using Sales.WebApp.Models.DetalleVenta;
 
 namespace Sales.WebApp.Validations.DetalleVentaValidations;
 
-public class DetalleVentaCreationDtoValidation : AbstractValidator<DetalleVentaCreationDto>
+public class DetalleVentaUpdateViewModelValidation : AbstractValidator<DetalleVentaUpdateViewModel>
 {
-    public DetalleVentaCreationDtoValidation()
+    public DetalleVentaUpdateViewModelValidation()
     {
+        RuleFor(v => v.Id)
+            .NotNull()
+                .WithMessage("No puede estar nulo")
+            .GreaterThan(0)
+                .WithMessage("No debe ser mayor que cero");
+        
         RuleFor(v => v.IdVenta)
             .NotNull()
                 .WithMessage("No puede estar nulo")

@@ -1,10 +1,9 @@
 ﻿using FluentValidation;
-using Sales.Application.Dtos.UsuarioDto;
-using Sales.Domain.Interfaces;
+using Sales.WebApp.Models.Usuario;
 
 namespace Sales.WebApp.Validations.UsuarioValidations;
 
-public class UsuarioUpdateDtoValidation : AbstractValidator<UsuarioUpdateDto>
+public class UsuarioUpdateDtoValidation : AbstractValidator<UsuarioUpdateViewModel>
 {
     public UsuarioUpdateDtoValidation()
     {

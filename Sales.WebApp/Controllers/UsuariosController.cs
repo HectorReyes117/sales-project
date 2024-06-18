@@ -2,9 +2,8 @@
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
-using Sales.Application.Dtos.UsuarioDto;
-using Sales.Domain.Entities;
 using Sales.WebApp.Extensions;
+using Sales.WebApp.Models.Usuario;
 using Sales.WebApp.Request;
 
 namespace Sales.WebApp.Controllers;
@@ -12,13 +11,13 @@ namespace Sales.WebApp.Controllers;
 public class UsuariosController : Controller
 {
     private readonly IUsuariosRequests _userRequest; 
-    private readonly IValidator<UsuarioCreationDto> _validator; 
-    private readonly IValidator<UsuarioUpdateDto> _validatorUpdate; 
+    private readonly IValidator<UsuarioCreationViewModel> _validator; 
+    private readonly IValidator<UsuarioUpdateViewModel> _validatorUpdate; 
 
     public UsuariosController(
         IUsuariosRequests userRequest, 
-        IValidator<UsuarioCreationDto> validator,
-        IValidator<UsuarioUpdateDto> validatorUpdate
+        IValidator<UsuarioCreationViewModel> validator,
+        IValidator<UsuarioUpdateViewModel> validatorUpdate
         )
     {
         _userRequest = userRequest;
@@ -41,7 +40,7 @@ public class UsuariosController : Controller
     [Route("Usuarios/Detail/{id}")]
     public async Task<IActionResult> Detail([FromRoute] int id)
     {
-        Usuario? user = null;
+        UsuarioModel? user = null;
         try
         {
             user = await _userRequest.Get(id);
@@ -62,18 +61,62 @@ public class UsuariosController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(UsuarioCreationDto usuarioCreationDto)
+    public async Task<IActionResult> Create(UsuarioCreationViewModel usuarioCreationViewModel)
     {
-        ValidationResult result = await _validator.ValidateAsync(usuarioCreationDto);
+        ValidationResult result = await _validator.ValidateAsync(usuarioCreationViewModel);
         
         if (!result.IsValid) 
         {
 
             result.AddToModelState(this.ModelState);
-            return View("Create", usuarioCreationDto);
+            return View("Create", usuarioCreationViewModel);
         }
 
-        using HttpResponseMessage response = await _userRequest.Save(usuarioCreationDto);
+        using HttpResponseMessage response = await _userRequest.Save(usuarioCreationViewModel);
         return RedirectToAction("Index", "Usuarios");
     }
+    
+    
+    [Route("Usuarios/Edit/{id}")]
+    public async Task<IActionResult> Edit([FromRoute]int id)
+    {
+        UsuarioModel? user = null;
+        try
+        {
+            user = await _userRequest.Get(id);
+        }
+        catch (HttpRequestException e)
+        {
+            if (e.StatusCode == HttpStatusCode.NotFound)
+            {
+                return RedirectToAction("Index"); 
+            }
+        }
+
+        if (user!.Eliminado is true)
+        {
+            return RedirectToAction("Index");
+        }
+        
+        return View(user.MapTo<UsuarioUpdateViewModel>());
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Route("Usuarios/Edit/{id}")]
+    public async Task<IActionResult> Edit(int id, UsuarioUpdateViewModel usuarioUpdateViewModel)
+    {
+        ValidationResult result = await _validatorUpdate.ValidateAsync(usuarioUpdateViewModel);
+        
+        if (!result.IsValid) 
+        {
+
+            result.AddToModelState(this.ModelState);
+            return View("Edit", usuarioUpdateViewModel);
+        }
+        
+        using HttpResponseMessage response = await _userRequest.Update(usuarioUpdateViewModel);
+        return RedirectToAction("Index", "Usuarios");
+    }
+    
 }

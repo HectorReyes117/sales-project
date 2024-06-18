@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using Sales.Application.Dtos.CategoriesDto;
+using Sales.WebApp.Models.Categories;
 
 namespace Sales.WebApp.Validations.CategoriaValidations;
 
-public class CategoriaCreationDtoValidator : AbstractValidator<CategoriaCreationDto>
+public class CategoriaCreationViewModelValidator : AbstractValidator<CategoriaCreationViewModel>
 {
-    public CategoriaCreationDtoValidator()
+    public CategoriaCreationViewModelValidator()
     {
         RuleFor(x => x.Descripcion)
             .NotNull()

@@ -1,8 +1,6 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using Sales.Application.Dtos.UsuarioDto;
-using Sales.Domain.Entities;
-using Sales.Domain.Models;
-using Sales.WebApp.Abstractions;
+﻿using Sales.WebApp.Abstractions;
+using Sales.WebApp.Models.Usuario;
+
 
 namespace Sales.WebApp.Request.Implementations;
 
@@ -15,24 +13,24 @@ public class UsuariosRequests : IUsuariosRequests
         _factoryAbstraction = factoryAbstraction;
     }
 
-    public async Task<HttpResponseMessage> Save(UsuarioCreationDto usuario)
+    public async Task<HttpResponseMessage> Save(UsuarioCreationViewModel usuario)
     {
         using HttpClient client = _factoryAbstraction.CreateClient();
         HttpResponseMessage response = await client.PostAsJsonAsync("usuario", usuario);
         return response;
     }
 
-    public async Task<HttpResponseMessage> Update(UsuarioUpdateDto usuario)
+    public async Task<HttpResponseMessage> Update(UsuarioUpdateViewModel usuario)
     {
         using HttpClient client = _factoryAbstraction.CreateClient();
         HttpResponseMessage response = await client.PutAsJsonAsync("usuario", usuario);
         return response;
     }
 
-    public async Task<Usuario?> Get(int id)
+    public async Task<UsuarioModel?> Get(int id)
     {
         using HttpClient client = _factoryAbstraction.CreateClient();
-        var user = await client.GetFromJsonAsync<Usuario>($"usuario/{id}");
+        var user = await client.GetFromJsonAsync<UsuarioModel>($"usuario/{id}");
         return user;
     }
 

@@ -1,4 +1,4 @@
-﻿@model Sales.WebApp.Models.Usuario.UsuarioCreationViewModel
+﻿@model  Sales.WebApp.Models.Usuario.UsuarioUpdateViewModel
 
 <div asp-validation-summary="ModelOnly"></div>
 
@@ -6,7 +6,7 @@
 
     <div class="flex items-start justify-between p-4 border-b rounded-t">
         <h3 class="text-xl font-semibold w-full">
-           Crear Usuario
+            Editar Usuario
         </h3>
         <div class="w-full pr-6 flex flex-row-reverse items-center">
             <a asp-controller="Usuarios" asp-action="Index" class="border border-3 border-b-black  mr-2.5 rounded-full cursor-pointer">
@@ -16,7 +16,7 @@
     </div>
 
     <div class="p-6 space-y-6">
-        <form asp-controller="Usuarios" asp-action="Create" method="post">
+        <form asp-controller="Usuarios" asp-action="Edit" asp-route-id="@Model.Id" method="post">
             <div class="grid grid-cols-6 gap-6 pb-3">
                 <div class="col-span-6 sm:col-span-3">
                     <label for="Nombre" class="text-sm font-medium text-gray-900 block mb-2">Nombre</label>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-span-6 sm:col-span-3">
                     <label for="Clave" class="text-sm font-medium text-gray-900 block mb-2">Clave</label>
-                    <input type="password" name="Clave" asp-for="Clave" id="Clave" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="password" >
+                    <input type="text" name="Clave" asp-for="Clave" id="Clave" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="password" >
                     <span asp-validation-for="Clave" class="text-red-400"></span>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
@@ -42,8 +42,8 @@
                     <label for="urlFoto" class="text-sm font-medium text-gray-900 block mb-2">Foto</label>
                     <input type="text" name="UrlFoto" asp-for="UrlFoto" id="urlFoto" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="http://imagen.png" >
                     <span asp-validation-for="UrlFoto" class="text-red-400"></span>
-                </div> 
-                
+                </div>
+
                 <div class="col-span-6 sm:col-span-3">
                     <label for="EsActivo" class="text-sm font-medium text-gray-900 block mb-2">¿Activo?</label>
                     <label class="relative inline-block">
