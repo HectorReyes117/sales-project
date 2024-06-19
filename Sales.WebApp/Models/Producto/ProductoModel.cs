@@ -1,6 +1,6 @@
-﻿namespace Sales.Domain.Models;
+﻿namespace Sales.WebApp.Models.Producto;
 
-public class ProductModel
+public class ProductoModel
 {
     public int Id { get; set; }
     public string? Descripcion { get; set; }

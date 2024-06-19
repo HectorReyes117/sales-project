@@ -3,6 +3,7 @@ using FluentValidation;
 using Sales.Application.Dtos.ProductoDto;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
+using Sales.Domain.Models;
 
 namespace Sales.Application.Services.Implementations;
 
@@ -41,13 +42,13 @@ public class ProductoService :  IProductoService
         await _productoRepository.Update(vent);
     }
 
-    public async Task<Producto?> Get(int id)
+    public async Task<ProductModel?> Get(int id)
     {
-        return await _productoRepository.Get(id);
+        return await _productoRepository.GetProductById(id);
     }
 
-    public async Task<List<Producto>> GetAll()
+    public async Task<List<ProductModel>> GetAll()
     {
-        return await _productoRepository.GetAll(null!);
+        return await _productoRepository.GetAllProducts();
     }
 }

@@ -8,8 +8,8 @@ namespace Sales.WebApp.Request;
 
 public interface IUsuariosRequests
 {
-    Task<HttpResponseMessage> Save(UsuarioCreationViewModel usuario);
-    Task<HttpResponseMessage> Update(UsuarioUpdateViewModel usuario);
+    Task<HttpResponseMessage> Save(UsuarioCreationViewModel product);
+    Task<HttpResponseMessage> Update(UsuarioUpdateViewModel product);
     Task<UsuarioModel?> Get(int id);
     Task<List<UsuarioModel>> GetAll();
     Task<HttpResponseMessage> DeleteUser(int id);

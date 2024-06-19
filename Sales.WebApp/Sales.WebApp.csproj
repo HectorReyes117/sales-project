@@ -16,6 +16,9 @@
     <ItemGroup>
       <ProjectReference Include="..\Sales.Application\Sales.Application.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    </ItemGroup>
     <Target Name="Tailwind" BeforeTargets="Build">
         <Exec Command="npm run css:build"/>
     </Target>

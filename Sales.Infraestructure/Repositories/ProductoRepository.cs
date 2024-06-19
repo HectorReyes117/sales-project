@@ -4,6 +4,7 @@ using Sales.Domain.Interfaces;
 using Sales.Domain.Models;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
+using Sales.Infraestructure.Extension;
 
 namespace Sales.Infraestructure.Repositories;
 
@@ -34,7 +35,12 @@ public class ProductoRepository : Repository<Producto>, IProductoRepository
                     CodigoBarra = product.CodigoBarra,
                     Marca = product.Marca,
                     Stock = product.Stock,
-                    NombreCategoria = product.Categoria.Descripcion
+                    NombreCategoria = product.Categoria.Descripcion,
+                    EsActivo = product.EsActivo,
+                    Precio = product.Precio,
+                    UrlImagen = product.UrlImagen,
+                    Descripcion = product.Descripcion,
+                    Eliminado = product.Eliminado
                 }
         ).ToListAsync();
         
@@ -81,7 +87,7 @@ public class ProductoRepository : Repository<Producto>, IProductoRepository
         await base.Update(entities);
     }
 
-    public override async Task<Producto?> Get(int id)
+    public async Task<ProductModel> GetProductById(int id)
     {
         var product = await base.Get(id);
 
@@ -89,7 +95,30 @@ public class ProductoRepository : Repository<Producto>, IProductoRepository
         {
             throw new ProductException("Producto no encontrado.");
         }
+        
+        var category = await _context.Categoria.FindAsync(product!.IdCategoria);
+        var newProduct = product.MapTo<ProductModel>();
+        newProduct.NombreCategoria = category.Descripcion;
+        return newProduct;
+    }
 
-        return product;
+    public async Task<List<ProductModel>> GetAllProducts()
+    {
+        var products = await _context.Productos.Where(x => x.Eliminado == false)
+            .Include(x => x.Categoria)
+            .Select(product => new ProductModel()
+            {
+                Id = product.Id,
+                CodigoBarra = product.CodigoBarra,
+                Marca = product.Marca,
+                Stock = product.Stock,
+                NombreCategoria = product.Categoria.Descripcion,
+                EsActivo = product.EsActivo,
+                Precio = product.Precio,
+                UrlImagen = product.UrlImagen,
+                Descripcion = product.Descripcion,
+                Eliminado = product.Eliminado
+            }).ToListAsync();
+        return products;
     }
 }

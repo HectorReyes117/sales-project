@@ -10,5 +10,5 @@ public class ProductoCreationViewModel
     public string? UrlImagen { get; set; }
     public string? NombreImagen { get; set; }
     public decimal? Precio { get; set; }
-    public bool? EsActivo { get; set; }
+    public bool EsActivo { get; set; }
 }

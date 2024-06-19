@@ -1,0 +1,75 @@
+﻿@model Sales.WebApp.Models.Producto.ProductoCreationViewModel
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<div class="bg-white border border-4 rounded-lg shadow m-10">
+
+    <div class="flex items-start justify-between p-4 border-b rounded-t">
+        <h3 class="text-xl font-semibold w-full">
+            Crear Producto
+        </h3>
+        <div class="w-full pr-6 flex flex-row-reverse items-center">
+            <a asp-controller="Productos" asp-action="Index" class="border border-3 border-b-black  mr-2.5 rounded-full cursor-pointer">
+                <svg height="30" width="30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Volver</title><path d="M21,11H6.83L10.41,7.41L9,6L3,12L9,18L10.41,16.58L6.83,13H21V11Z" /></svg>
+            </a>
+        </div>
+    </div>
+
+    <div class="p-6 space-y-6">
+        <form asp-controller="Productos" asp-action="Create" method="post">
+            <div class="grid grid-cols-6 gap-6 pb-3">
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="Descripcion" class="text-sm font-medium text-gray-900 block mb-2">Descripcion</label>
+                    <input type="text" name="Descripcion" asp-for="Descripcion" id="Descripcion" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" >
+                    <span asp-validation-for="Descripcion" class="text-red-400"></span>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="Marca" class="text-sm font-medium text-gray-900 block mb-2">Marca</label>
+                    <input type="text" name="Marca" asp-for="Marca" id="Marca" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" >
+                    <span asp-validation-for="Marca" class="text-red-400"></span>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="Stock" class="text-sm font-medium text-gray-900 block mb-2">Stock</label>
+                    <input type="number" name="Stock" asp-for="Stock" id="Stock" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                    <span asp-validation-for="Stock" class="text-red-400"></span>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="Precio" class="text-sm font-medium text-gray-900 block mb-2">Precio</label>
+                    <input type="number" name="Precio" asp-for="Precio" id="Precio" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                    <span asp-validation-for="Precio" class="text-red-400"></span>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="UrlImagen" class="text-sm font-medium text-gray-900 block mb-2">Url Imagen</label>
+                    <input type="text" name="UrlImagen" asp-for="UrlImagen" id="UrlImagen" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="http://imagen.png" >
+                    <span asp-validation-for="UrlImagen" class="text-red-400"></span>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="UrlImagen" class="text-sm font-medium text-gray-900 block mb-2">Categoria</label>
+                    <select id="IdCategoria" name="IdCategoria" asp-for="IdCategoria" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                        <option value="">Seleccione una opción</option>
+                        <option value="1">Computadoras</option>
+                        <option value="2">Laptops</option>
+                        <option value="3">Teclados</option>
+                        <option value="4">Monitores</option>
+                        <option value="5">Microfonos</option>
+                        <option value="6">Nueva Actualizada</option>
+                    </select>
+                    <span asp-validation-for="IdCategoria" class="text-red-400"></span>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="EsActivo" class="text-sm font-medium text-gray-900 block mb-2">¿Activo?</label>
+                    <label class="relative inline-block">
+                        <input asp-for="EsActivo" type="checkbox" name="EsActivo" id="EsActivo" class="peer opacity-0" />
+                        <span class="absolute top-0 left-0 w-9 h-5 cursor-pointer rounded-full bg-slate-200 border border-slate-300 transition-all duration-100 peer-checked:bg-sky-700"></span>
+                        <span class="absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full z-10 transition-all duration-100 peer-checked:translate-x-4"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 rounded-b">
+                <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

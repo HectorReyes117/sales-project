@@ -8,6 +8,8 @@ public static class RegisterRequestsExtension
     public static IServiceCollection RegisterRequest(this IServiceCollection services)
     {
         services.AddScoped<IUsuariosRequests, UsuariosRequests>();
+        services.AddScoped<IProductoRequests, ProductoRequests>();
+        services.AddScoped<ICategoriaRequests, CategoriaRequests>();
         return services;
     }
 }

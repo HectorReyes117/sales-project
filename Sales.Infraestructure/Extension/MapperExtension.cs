@@ -1,9 +1,72 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 
 namespace Sales.Infraestructure.Extension;
 
 public static class MapperExtension
 {
+   
+    
+    public static List<TDestination> MapToList<TSource,TDestination>(this List<TSource> source) where TDestination : new()
+    {
+        if (source == null)
+        {
+            throw new ArgumentNullException(nameof(source));
+        }
+
+        List<TDestination> destinationList = new List<TDestination>();
+
+        foreach (var item in source)
+        {
+            if (item != null)
+            {
+                destinationList.Add(item.MapTo<TDestination>());
+            }
+        }
+
+        return destinationList;
+    }
+
+    public static ICollection<TDestination> MapToCollection<TSource, TDestination>(this ICollection<TSource> source) where TDestination : new() 
+    {
+        if (source == null)
+        {
+            throw new ArgumentNullException(nameof(source));
+        }
+
+        ICollection<TDestination> destinationCollection = new List<TDestination>();
+
+        foreach (var item in source)
+        {
+            if (item != null)
+            {
+                destinationCollection.Add(item.MapTo<TDestination>());
+            }
+        }
+
+        return destinationCollection;
+    }
+
+    public static IEnumerable<TDestination> MapToEnumerable<TSource, TDestination>(this IEnumerable<TSource> source) where TDestination : new()
+    {
+        if (source == null)
+        {
+            throw new ArgumentNullException(nameof(source));
+        }
+
+        List<TDestination> destinationEnumerable = new List<TDestination>();
+
+        foreach (var item in source)
+        {
+            if (item != null)
+            {
+                destinationEnumerable.Add(item.MapTo<TDestination>());
+            }
+        }
+
+        return destinationEnumerable;
+    }
+    
     public static TDestination MapTo<TDestination>(this object source) where TDestination : new()
     {
         if (source == null)
@@ -29,3 +92,6 @@ public static class MapperExtension
         return destination;
     }
 }
+    
+    
+   

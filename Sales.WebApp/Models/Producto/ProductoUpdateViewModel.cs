@@ -1,4 +1,6 @@
-﻿namespace Sales.WebApp.Models.Producto;
+﻿using Sales.WebApp.Models.Categories;
+
+namespace Sales.WebApp.Models.Producto;
 
 public class ProductoUpdateViewModel
 {
@@ -11,5 +13,6 @@ public class ProductoUpdateViewModel
     public string? UrlImagen { get; set; }
     public string? NombreImagen { get; set; }
     public decimal? Precio { get; set; }
-    public bool? EsActivo { get; set; }
+    public bool EsActivo { get; set; }
+    public List<CategoriaModel> Categories { get; set; }
 }
