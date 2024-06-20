@@ -51,4 +51,9 @@ public class ProductoService :  IProductoService
     {
         return await _productoRepository.GetAllProducts();
     }
+
+    public async Task DeleteProduct(int id)
+    {
+        await _productoRepository.DeleteProduct(id);
+    }
 }

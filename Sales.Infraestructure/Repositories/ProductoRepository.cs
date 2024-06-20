@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Sales.Domain.Common.Extensions;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Domain.Models;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
-using Sales.Infraestructure.Extension;
 
 namespace Sales.Infraestructure.Repositories;
 
@@ -40,7 +40,8 @@ public class ProductoRepository : Repository<Producto>, IProductoRepository
                     Precio = product.Precio,
                     UrlImagen = product.UrlImagen,
                     Descripcion = product.Descripcion,
-                    Eliminado = product.Eliminado
+                    Eliminado = product.Eliminado,
+                    IdCategoria = product.Categoria.Id
                 }
         ).ToListAsync();
         
@@ -86,6 +87,14 @@ public class ProductoRepository : Repository<Producto>, IProductoRepository
         }
         await base.Update(entities);
     }
+    
+    public async Task DeleteProduct(int id)
+    {
+        Producto? product = await this.Get(id);
+        product!.FechaElimino = DateTime.Now;
+        product!.Eliminado = true;
+        await Update(product);
+    }
 
     public async Task<ProductModel> GetProductById(int id)
     {
@@ -117,7 +126,9 @@ public class ProductoRepository : Repository<Producto>, IProductoRepository
                 Precio = product.Precio,
                 UrlImagen = product.UrlImagen,
                 Descripcion = product.Descripcion,
-                Eliminado = product.Eliminado
+                Eliminado = product.Eliminado,
+                IdCategoria = product.Categoria.Id
+                
             }).ToListAsync();
         return products;
     }

@@ -78,7 +78,10 @@ public static class MapperExtension
 
         foreach (var sourceProperty in sourceProperties)
         {
-            var destinationProperty = destinationProperties.FirstOrDefault(dp => dp.Name == sourceProperty.Name && dp.PropertyType == sourceProperty.PropertyType);
+            var destinationProperty = destinationProperties.FirstOrDefault(dp => dp.Name == sourceProperty.Name && 
+                (dp.PropertyType == sourceProperty.PropertyType || 
+                 (Nullable.GetUnderlyingType(dp.PropertyType) == sourceProperty.PropertyType) || 
+                 (Nullable.GetUnderlyingType(sourceProperty.PropertyType) == dp.PropertyType)));
             
             if (destinationProperty != null && destinationProperty.CanWrite)
             {

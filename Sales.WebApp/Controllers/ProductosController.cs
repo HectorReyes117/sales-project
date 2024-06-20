@@ -35,7 +35,7 @@ public class ProductosController : Controller
         return View(await _productRequest.GetAll());
     }
 
-    [HttpPost("{id}")]
+    [HttpPost("Productos/Index/{id}")]
     public async Task<IActionResult> IndexDeleteProduct(int id)
     {
         using HttpResponseMessage response = await _productRequest.DeleteProduct(id);
@@ -60,9 +60,13 @@ public class ProductosController : Controller
         return View(product);
     }
 
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-        return View();
+        var categories = await _categoriaRequests.GetAll();
+        ProductoCreationViewModel product = new ProductoCreationViewModel();
+        product.Categories = categories;
+        TempData["Categories"] = JsonConvert.SerializeObject(categories);
+        return View(product);
     }
 
     [HttpPost]
@@ -72,6 +76,16 @@ public class ProductosController : Controller
 
         if (!result.IsValid)
         {
+            if (TempData["Categories"] != null)
+            {
+                productoCreationViewModel.Categories = JsonConvert.DeserializeObject<List<CategoriaModel>>(TempData["Categories"]?.ToString());
+            }
+
+            else
+            {
+                productoCreationViewModel.Categories = await _categoriaRequests.GetAll();
+            }
+            
             result.AddToModelState(this.ModelState);
             return View("Create", productoCreationViewModel);
         }
@@ -122,6 +136,11 @@ public class ProductosController : Controller
             {
                 productoUpdateViewModel.Categories = JsonConvert.DeserializeObject<List<CategoriaModel>>(TempData["Categories"]?.ToString());
             }
+            else
+            {
+                productoUpdateViewModel.Categories = await _categoriaRequests.GetAll();
+            }
+            
             result.AddToModelState(this.ModelState);
             return View("Edit", productoUpdateViewModel);
         }

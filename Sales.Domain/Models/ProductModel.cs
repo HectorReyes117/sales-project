@@ -8,6 +8,7 @@ public class ProductModel
     public string? Marca { get; set; }
     public int? Stock { get; set; }
     public string NombreCategoria { get; set; } = string.Empty;
+    public int? IdCategoria { get; set; }
     public bool? EsActivo { get; set; }
     public decimal? Precio { get; set; }
     public string? UrlImagen { get; set; }

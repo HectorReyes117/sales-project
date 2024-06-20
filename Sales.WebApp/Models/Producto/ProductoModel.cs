@@ -10,6 +10,7 @@ public class ProductoModel
     public string NombreCategoria { get; set; } = string.Empty;
     public bool? EsActivo { get; set; }
     public decimal? Precio { get; set; }
+    public int? IdCategoria { get; set; }
     public string? UrlImagen { get; set; }
     public bool Eliminado { get; set; }
 }

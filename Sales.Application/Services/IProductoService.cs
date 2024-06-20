@@ -10,4 +10,5 @@ public interface IProductoService
     Task Update(ProductoUpdateDto producto);
     Task<ProductModel?> Get(int id);
     Task<List<ProductModel>> GetAll();
+    Task DeleteProduct(int id);
 }

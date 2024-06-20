@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace Sales.Infraestructure.Extension;
+namespace Sales.Domain.Common.Extensions;
 
 public static class MapperExtension
 {
@@ -81,7 +80,10 @@ public static class MapperExtension
 
         foreach (var sourceProperty in sourceProperties)
         {
-            var destinationProperty = destinationProperties.FirstOrDefault(dp => dp.Name == sourceProperty.Name && dp.PropertyType == sourceProperty.PropertyType);
+            var destinationProperty = destinationProperties.FirstOrDefault(dp => dp.Name == sourceProperty.Name && 
+                (dp.PropertyType == sourceProperty.PropertyType || 
+                 (Nullable.GetUnderlyingType(dp.PropertyType) == sourceProperty.PropertyType) || 
+                 (Nullable.GetUnderlyingType(sourceProperty.PropertyType) == dp.PropertyType)));
             
             if (destinationProperty != null && destinationProperty.CanWrite)
             {

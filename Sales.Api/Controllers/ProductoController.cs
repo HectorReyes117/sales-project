@@ -75,4 +75,18 @@ public class ProductoController : ControllerBase
             return StatusCode(404, new { message = e.Message });
         }
     }
+    
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteProductById(int id)
+    {
+        try
+        {
+            await _productoService.DeleteProduct(id);
+            return Ok("Eliminado Satisfactoriamente");
+        }
+        catch (ProductException e)
+        {
+            return StatusCode(404, new { message = e.Message });
+        }
+    }
 }

@@ -1,12 +1,12 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Sales.Domain.Common.Extensions;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Domain.Models;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
-using Sales.Infraestructure.Extension;
 
 namespace Sales.Infraestructure.Repositories;
 

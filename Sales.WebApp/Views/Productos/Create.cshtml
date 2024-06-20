@@ -46,14 +46,8 @@
 
                 <div class="col-span-6 sm:col-span-3">
                     <label for="UrlImagen" class="text-sm font-medium text-gray-900 block mb-2">Categoria</label>
-                    <select id="IdCategoria" name="IdCategoria" asp-for="IdCategoria" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                    <select id="IdCategoria" name="IdCategoria"  asp-for="IdCategoria" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" asp-items="@(new SelectList(Model.Categories, "Id", "Descripcion"))">
                         <option value="">Seleccione una opción</option>
-                        <option value="1">Computadoras</option>
-                        <option value="2">Laptops</option>
-                        <option value="3">Teclados</option>
-                        <option value="4">Monitores</option>
-                        <option value="5">Microfonos</option>
-                        <option value="6">Nueva Actualizada</option>
                     </select>
                     <span asp-validation-for="IdCategoria" class="text-red-400"></span>
                 </div>
