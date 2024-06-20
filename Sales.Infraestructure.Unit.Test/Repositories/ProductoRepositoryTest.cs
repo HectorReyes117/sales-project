@@ -97,20 +97,26 @@ public class ProductoRepositoryTest : IDisposable
     }
 
     [Fact]
-    public async Task Get_ShouldThrowException_WhenProductoNotFound()
+    public async Task GetProductById_ShouldThrowException_WhenProductoNotFound()
     {
-        var exception = await Assert.ThrowsAsync<ProductException>(() => _productoRepository.Get(999));
+        var exception = await Assert.ThrowsAsync<ProductException>(() => _productoRepository.GetProductById(999));
         Assert.Equal("Producto no encontrado.", exception.Message);
     }
 
     [Fact]
-    public async Task Get_ShouldReturnProducto_WhenProductoExists()
+    public async Task GetProductById_ShouldReturnProducto_WhenProductoExists()
     {
         // Arrange
+        Categoria categoria = new Categoria()
+        {
+            Descripcion = "Hola"
+        };
+        
         await _productoRepository.Save(_producto);
+        await _context.Categoria.AddAsync(categoria);
 
         // Act
-        var result = await _productoRepository.Get(_producto.Id);
+        var result = await _productoRepository.GetProductById(_producto.Id);
 
         // Assert
         Assert.NotNull(result);

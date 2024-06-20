@@ -4,7 +4,6 @@ using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
-using Sales.Infraestructure.Mappers;
 using Sales.Infraestructure.Repositories;
 using Sales.Infraestructure.test.AbstractionsTests;
 using Sales.Infraestructure.test.AbstractionsTests.Implementations;

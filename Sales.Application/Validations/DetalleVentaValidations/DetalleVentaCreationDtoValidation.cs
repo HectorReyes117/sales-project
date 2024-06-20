@@ -1,36 +1,24 @@
 ﻿using FluentValidation;
 using Sales.Application.Dtos.DetalleVentaDto;
-using Sales.Domain.Interfaces;
 
 namespace Sales.Application.Validations.DetalleVentaValidations;
 
 public class DetalleVentaCreationDtoValidation : AbstractValidator<DetalleVentaCreationDto>
 {
     // Todo create validations and use in validations of venta
-    public DetalleVentaCreationDtoValidation(
-        IVentaRepository ventaRepository,
-        IProductoRepository productoRepository
-        )
+    public DetalleVentaCreationDtoValidation()
     {
         RuleFor(v => v.IdVenta)
             .NotNull()
                 .WithMessage("No puede estar nulo")
             .GreaterThan(0)
-                .WithMessage("No debe ser mayor que cero")
-            .MustAsync(async (id, _) =>
-            {
-                return !(await ventaRepository.Exist(x => x.Id == id));
-            }).WithMessage("La venta no existe.");
+                .WithMessage("No debe ser mayor que cero");
         
         RuleFor(v => v.IdProducto)
             .NotNull()
                 .WithMessage("No puede estar nulo")
             .GreaterThan(0)
-                .WithMessage("No debe ser mayor que cero")
-            .MustAsync(async (id, _) =>
-            {
-                return !(await productoRepository.Exist(x => x.Id == id));
-            }).WithMessage("El producto no existe");
+                .WithMessage("No debe ser mayor que cero");
         
         RuleFor(v => v.MarcaProducto)
             .NotNull()

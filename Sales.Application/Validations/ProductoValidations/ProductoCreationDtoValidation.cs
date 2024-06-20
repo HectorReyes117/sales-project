@@ -1,14 +1,11 @@
 ﻿using FluentValidation;
 using Sales.Application.Dtos.ProductoDto;
-using Sales.Domain.Interfaces;
 
 namespace Sales.Application.Validations.ProductoValidations;
 
 public class ProductoCreationDtoValidation : AbstractValidator<ProductoCreationDto>
 {
-    public ProductoCreationDtoValidation(
-        ICategoriaRepository categoriaRepository
-        )
+    public ProductoCreationDtoValidation()
     {
         RuleFor(v => v.Marca)
             .NotNull()

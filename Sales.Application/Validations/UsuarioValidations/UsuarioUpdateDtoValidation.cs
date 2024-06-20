@@ -1,14 +1,11 @@
 ﻿using FluentValidation;
 using Sales.Application.Dtos.UsuarioDto;
-using Sales.Domain.Interfaces;
 
 namespace Sales.Application.Validations.UsuarioValidations;
 
 public class UsuarioUpdateDtoValidation : AbstractValidator<UsuarioUpdateDto>
 {
-    public UsuarioUpdateDtoValidation(
-        IUsuarioRepository usuarioRepository
-        )
+    public UsuarioUpdateDtoValidation()
     {
         RuleFor(x => x.Id)
             .NotNull()

@@ -1,47 +1,30 @@
 ﻿using FluentValidation;
 using Sales.Application.Dtos.DetalleVentaDto;
-using Sales.Domain.Interfaces;
 
 namespace Sales.Application.Validations.DetalleVentaValidations;
 
 public class DetalleVentaUpdateDtoValidation : AbstractValidator<DetalleVentaUpdateDto>
 {
     // Todo create validations and use in validations of venta
-    public DetalleVentaUpdateDtoValidation(
-        IDetalleVentaRepository detalleVentaRepository,
-        IVentaRepository ventaRepository,
-        IProductoRepository productoRepository
-        )
+    public DetalleVentaUpdateDtoValidation()
     {
         RuleFor(v => v.Id)
             .NotNull()
                 .WithMessage("No puede estar nulo")
             .GreaterThan(0)
-                .WithMessage("No debe ser mayor que cero")
-            .MustAsync(async (id, _) =>
-            {
-                return !(await detalleVentaRepository.Exist(x => x.Id == id));
-            }).WithMessage("El detalle de la venta no existe");
+                .WithMessage("No debe ser mayor que cero");
         
         RuleFor(v => v.IdVenta)
             .NotNull()
                 .WithMessage("No puede estar nulo")
             .GreaterThan(0)
-                .WithMessage("No debe ser mayor que cero")
-            .MustAsync(async (id, _) =>
-            {
-                return !(await ventaRepository.Exist(x => x.Id == id));
-            }).WithMessage("La venta no existe");
+                .WithMessage("No debe ser mayor que cero");
         
         RuleFor(v => v.IdProducto)
             .NotNull()
                 .WithMessage("No puede estar nulo")
             .GreaterThan(0)
-                .WithMessage("No debe ser mayor que cero")
-            .MustAsync(async (id, _) =>
-            {
-                return !(await productoRepository.Exist(x => x.Id == id));
-            }).WithMessage("El producto no existe");
+                .WithMessage("No debe ser mayor que cero");
         
         RuleFor(v => v.MarcaProducto)
             .NotNull()

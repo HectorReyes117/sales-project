@@ -1,18 +1,12 @@
 ﻿using FluentValidation;
 using Sales.Application.Dtos.VentaDto;
 using Sales.Application.Validations.DetalleVentaValidations;
-using Sales.Domain.Interfaces;
 
 namespace Sales.Application.Validations.VentaValidations;
 
 public class VentaCreationDtoValidation : AbstractValidator<VentaCreationDto>
 {
-    // Todo refactoring to reuse in VentaUpdateDtoValidation
-    public VentaCreationDtoValidation(
-        IDetalleVentaRepository detalleVentaRepository,
-        IVentaRepository ventaRepository,
-        IProductoRepository productoRepository
-        )
+    public VentaCreationDtoValidation()
     {
         RuleFor(v => v.NumeroVenta)
             .NotNull()
@@ -63,6 +57,6 @@ public class VentaCreationDtoValidation : AbstractValidator<VentaCreationDto>
                 .WithMessage("Debe ser mayor o igual a cero");
         
         RuleForEach(v => v.DetalleVenta)
-            .SetValidator(new DetalleVentaCreationDtoValidation(ventaRepository, productoRepository));
+            .SetValidator(new DetalleVentaCreationDtoValidation());
     }
 }
