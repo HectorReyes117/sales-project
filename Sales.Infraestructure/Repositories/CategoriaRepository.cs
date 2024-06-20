@@ -1,5 +1,7 @@
-﻿using Sales.Domain.Entities;
+﻿using Sales.Domain.Common.Extensions;
+using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
+using Sales.Domain.Models;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
 
@@ -54,7 +56,7 @@ public class CategoriaRepository : Repository<Categoria>, ICategoriaRepository
         await base.Update(entities);
     }
 
-    public override async Task<Categoria?> Get(int id)
+    public async Task<CategoriaModel?> GetCategoryById(int id)
     {
         var cat = await base.Get(id);
 
@@ -62,7 +64,15 @@ public class CategoriaRepository : Repository<Categoria>, ICategoriaRepository
         {
             throw new CategoriaException("Categoria no encontrada");
         }
-
-        return cat;
+        
+        return cat.MapTo<CategoriaModel>();
+    }
+    
+    public async Task DeleteCategory(int id)
+    {
+        Categoria? category = await this.Get(id);
+        category!.FechaElimino = DateTime.Now;
+        category!.Eliminado = true;
+        await Update(category);
     }
 }

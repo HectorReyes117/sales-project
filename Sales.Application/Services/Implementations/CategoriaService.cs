@@ -3,6 +3,7 @@ using FluentValidation;
 using Sales.Application.Dtos.CategoriesDto;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
+using Sales.Domain.Models;
 
 namespace Sales.Application.Services.Implementations;
 
@@ -40,13 +41,18 @@ public class CategoriaService : ICategoriaService
         await _categoriaRepository.Update(cate);
     }
     
-    public async Task<Categoria?> Get(int id)
+    public async Task<CategoriaModel?> Get(int id)
     {
-        return await _categoriaRepository.Get(id);
+        return await _categoriaRepository.GetCategoryById(id);
     }
 
     public async Task<List<Categoria>> GetAll()
     {
-        return await _categoriaRepository.GetAll(null!);
+        return await _categoriaRepository.GetAll(x => x.Eliminado == false);
+    }
+
+    public async Task DeleteCategory(int id)
+    {
+        await _categoriaRepository.DeleteCategory(id);
     }
 }

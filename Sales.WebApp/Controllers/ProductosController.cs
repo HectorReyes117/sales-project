@@ -110,7 +110,7 @@ public class ProductosController : Controller
             }
         }
 
-        if (product!.Eliminado is true)
+        if (product!.Eliminado)
         {
             return RedirectToAction("Index");
         }

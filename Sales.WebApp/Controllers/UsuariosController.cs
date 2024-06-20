@@ -93,7 +93,7 @@ public class UsuariosController : Controller
             }
         }
 
-        if (user!.Eliminado is true)
+        if (user!.Eliminado)
         {
             return RedirectToAction("Index");
         }

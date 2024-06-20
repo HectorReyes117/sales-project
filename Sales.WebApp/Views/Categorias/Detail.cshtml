@@ -1,0 +1,57 @@
+﻿@model Sales.WebApp.Models.Categories.CategoriaModel
+
+<id>
+    @ViewData["id"]
+</id>
+
+
+<div class="bg-white overflow-hidden shadow rounded-lg border my-5">
+    <div class="flex justify-between w-full">
+        <div class="px-4 py-3 sm:px-6 w-full">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 ml-0.5">
+                Detalles Categoria
+            </h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                This is some information about the category.
+            </p>
+        </div>
+        <div class="w-full pr-6 flex flex-row-reverse items-center">
+            <a asp-controller="Categorias" asp-action="Index" class="border border-3 border-b-black  mr-2.5 rounded-full cursor-pointer">
+                <svg height="30" width="30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Volver</title><path d="M21,11H6.83L10.41,7.41L9,6L3,12L9,18L10.41,16.58L6.83,13H21V11Z" /></svg>
+            </a>
+        </div>
+    </div>
+    <div class="border-t border-gray-200 px-4 sm:p-0">
+        <dl class="sm:divide-y sm:divide-gray-200">
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Descripción
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    @Model.Descripcion
+                </dd>
+            </div>
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Activo
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    @{
+                    if ((bool)@Model.EsActivo!)
+                    {
+                    <p class="inline-flex rounded-full bg-success bg-opacity-10 px-3 py-1 text-sm font-medium text-success">
+                        Activo
+                    </p>
+                    }
+                    else
+                    {
+                    <p class="inline-flex rounded-full bg-danger bg-opacity-10 px-3 py-1 text-sm font-medium text-danger">
+                        Inactivo
+                    </p>
+                    }
+                    }
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>

@@ -74,4 +74,18 @@ public class CategoriaController : ControllerBase
             return StatusCode(404, new { message = e.Message });
         }
     }
+    
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteCategoryById(int id)
+    {
+        try
+        {
+            await _categoriaService.DeleteCategory(id);
+            return Ok("Eliminado Satisfactoriamente");
+        }
+        catch (CategoriaException e)
+        {
+            return StatusCode(404, new { message = e.Message });
+        }
+    }
 }
