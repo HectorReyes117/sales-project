@@ -21,7 +21,7 @@ public class CategoriaController : ControllerBase
     {
         try
         {
-            var categories = await _categoriaService.GetAll();
+            var categories = await _categoriaService.GeAllWithFilter();
             return Ok(categories);
         }
         catch (Exception e)

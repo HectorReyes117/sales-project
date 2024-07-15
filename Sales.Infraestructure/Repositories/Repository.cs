@@ -1,18 +1,22 @@
 ﻿using System.Linq.Expressions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Sales.Application.Filters;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
 
 namespace Sales.Infraestructure.Repositories;
 
-public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+public abstract class Repository<TEntity> :Filterable<TEntity>, IRepository<TEntity> where TEntity : class
 {
     private readonly SalesContext _context;
     private readonly DbSet<TEntity> _entities;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     
-    public Repository(SalesContext context)
+    public Repository(SalesContext context, IHttpContextAccessor httpContextAccessor)
     {
         this._context = context;
+        _httpContextAccessor = httpContextAccessor;
         _entities = context.Set<TEntity>();
     }
     
@@ -58,4 +62,12 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
     {
         return await _entities.AnyAsync(filter);
     }
+
+    public virtual IEnumerable<TEntity> WithFilter()
+    {
+        return Filter(_entities.AsQueryable(), _httpContextAccessor.HttpContext)
+            .AsEnumerable();
+    }
+    
+    
 }

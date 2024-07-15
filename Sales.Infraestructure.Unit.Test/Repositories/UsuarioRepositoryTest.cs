@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
@@ -15,12 +16,13 @@ public class UsuarioRepositoryTest : IDisposable
     private readonly SalesContext _context;
     private readonly IUsuarioRepository _usuarioRepository;
     private Usuario _usuario;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public UsuarioRepositoryTest()
     {
         IDbInMemory context = new DbInMemory();
         _context = context.CreateContext();
-        _usuarioRepository = new UsuarioRepository(_context);
+        _usuarioRepository = new UsuarioRepository(_context, _httpContextAccessor);
         _usuario = new Usuario()
         {
             Nombre = "Juan Perez",

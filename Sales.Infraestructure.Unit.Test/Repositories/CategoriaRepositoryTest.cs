@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
@@ -13,12 +14,13 @@ public class CategoriaRepositoryTest : IDisposable
 {
     private readonly SalesContext _context;
     private readonly ICategoriaRepository _categoriaRepository;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     
     public CategoriaRepositoryTest()
     {
         IDbInMemory context = new DbInMemory();
         _context = context.CreateContext();
-        _categoriaRepository = new CategoriaRepository(_context);
+        _categoriaRepository = new CategoriaRepository(_context, _httpContextAccessor);
     }    
     
     [Fact]

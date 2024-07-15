@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Common.Extensions;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
@@ -12,7 +13,8 @@ public class ProductoRepository : Repository<Producto>, IProductoRepository
 {
     private readonly SalesContext _context;
 
-    public ProductoRepository(SalesContext context) : base(context)
+    public ProductoRepository(SalesContext context, IHttpContextAccessor httpContextAccessor) 
+        : base(context, httpContextAccessor)
     {
         _context = context;
     }
@@ -131,5 +133,15 @@ public class ProductoRepository : Repository<Producto>, IProductoRepository
                 
             }).ToListAsync();
         return products;
+    }
+    
+    public override string[] FullTextSearchColumns()
+    {
+        return [];
+    }
+
+    public override string[] FilterableColumns()
+    {
+        return [];
     }
 }

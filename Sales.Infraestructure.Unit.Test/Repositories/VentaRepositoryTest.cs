@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
@@ -14,12 +15,13 @@ public class VentaRepositoryTest : IDisposable
     private readonly SalesContext _context;
     private readonly IVentaRepository _ventaRepository;
     private Venta _venta;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public VentaRepositoryTest()
     {
         IDbInMemory context = new DbInMemory();
         _context = context.CreateContext();
-        _ventaRepository = new VentaRepository(_context);
+        _ventaRepository = new VentaRepository(_context, _httpContextAccessor);
         _venta = new Venta()
         {
             NumeroVenta = "V001",

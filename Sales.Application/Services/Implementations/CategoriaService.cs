@@ -55,4 +55,9 @@ public class CategoriaService : ICategoriaService
     {
         await _categoriaRepository.DeleteCategory(id);
     }
+
+    public async Task<List<Categoria>> GeAllWithFilter()
+    {
+        return await _categoriaRepository.GeAllWithFilter();
+    }
 }

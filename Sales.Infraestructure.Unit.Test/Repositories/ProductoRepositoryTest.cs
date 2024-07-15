@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
@@ -14,12 +15,13 @@ public class ProductoRepositoryTest : IDisposable
     private readonly SalesContext _context;
     private readonly IProductoRepository _productoRepository;
     private Producto _producto;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public ProductoRepositoryTest()
     {
         IDbInMemory context = new DbInMemory();
         _context = context.CreateContext();
-        _productoRepository = new ProductoRepository(_context);
+        _productoRepository = new ProductoRepository(_context, _httpContextAccessor);
         _producto = new Producto()
         {
             CodigoBarra = "123456789",

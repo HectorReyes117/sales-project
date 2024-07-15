@@ -1,4 +1,5 @@
-﻿using Sales.Domain.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
@@ -9,7 +10,8 @@ public class DetalleVentaRepository : Repository<DetalleVenta>, IDetalleVentaRep
 {
     private readonly SalesContext _context;
 
-    public DetalleVentaRepository(SalesContext context) : base(context)
+    public DetalleVentaRepository(SalesContext context, IHttpContextAccessor httpContextAccessor) 
+        : base(context, httpContextAccessor)
     {
         _context = context;
     }
@@ -58,5 +60,15 @@ public class DetalleVentaRepository : Repository<DetalleVenta>, IDetalleVentaRep
         }
 
         return detailSale;
+    }
+    
+    public override string[] FullTextSearchColumns()
+    {
+        return [];
+    }
+
+    public override string[] FilterableColumns()
+    {
+        return [];
     }
 }

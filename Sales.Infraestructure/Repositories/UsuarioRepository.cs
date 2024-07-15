@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Common.Extensions;
 using Sales.Domain.Entities;
@@ -14,7 +15,8 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
 {
     private readonly SalesContext _context;
 
-    public UsuarioRepository(SalesContext context) : base(context)
+    public UsuarioRepository(SalesContext context, IHttpContextAccessor httpContextAccessor) 
+        : base(context, httpContextAccessor)
     {
         _context = context;
     }
@@ -97,5 +99,15 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
         }
 
         return user.MapTo<UsuarioModel>();
+    }
+    
+    public override string[] FullTextSearchColumns()
+    {
+        return [];
+    }
+
+    public override string[] FilterableColumns()
+    {
+        return [];
     }
 }

@@ -1,4 +1,5 @@
-﻿using Sales.Domain.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
 
@@ -8,8 +9,19 @@ public class ConfiguracionRepository : Repository<Configuracion>, IConfiguracion
 {
     private readonly SalesContext _context;
     
-    public ConfiguracionRepository(SalesContext context) : base(context)
+    public ConfiguracionRepository(SalesContext context , IHttpContextAccessor httpContextAccessor) 
+        : base(context, httpContextAccessor)
     {
         this._context = context;
+    }
+    
+    public override string[] FullTextSearchColumns()
+    {
+        return [];
+    }
+
+    public override string[] FilterableColumns()
+    {
+        return [];
     }
 }

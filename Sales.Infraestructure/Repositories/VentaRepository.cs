@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Domain.Models;
@@ -11,7 +12,8 @@ public class VentaRepository : Repository<Venta>, IVentaRepository
 {
     private readonly SalesContext _context;
 
-    public VentaRepository(SalesContext context) : base(context)
+    public VentaRepository(SalesContext context, IHttpContextAccessor httpContextAccessor) 
+        : base(context, httpContextAccessor)
     {
         _context = context;
     }
@@ -80,5 +82,15 @@ public class VentaRepository : Repository<Venta>, IVentaRepository
         }
 
         return venta;
+    }
+    
+    public override string[] FullTextSearchColumns()
+    {
+        return [];
+    }
+
+    public override string[] FilterableColumns()
+    {
+        return [];
     }
 }

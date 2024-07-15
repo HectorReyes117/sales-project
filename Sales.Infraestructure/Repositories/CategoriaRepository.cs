@@ -1,4 +1,5 @@
-﻿using Sales.Domain.Common.Extensions;
+﻿using Microsoft.AspNetCore.Http;
+using Sales.Domain.Common.Extensions;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Domain.Models;
@@ -11,7 +12,8 @@ public class CategoriaRepository : Repository<Categoria>, ICategoriaRepository
 {
     private readonly SalesContext _context;
     
-    public CategoriaRepository(SalesContext context) : base(context)
+    public CategoriaRepository(SalesContext context, IHttpContextAccessor httpContextAccessor) 
+        : base(context, httpContextAccessor)
     {
         this._context = context;
     }
@@ -74,5 +76,34 @@ public class CategoriaRepository : Repository<Categoria>, ICategoriaRepository
         category!.FechaElimino = DateTime.Now;
         category!.Eliminado = true;
         await Update(category);
+    }
+
+    public override string[] FullTextSearchColumns()
+    {
+        return [
+            "Descripcion",
+            "EsActivo"
+        ];
+    }
+
+    public override string[] FilterableColumns()
+    {
+        return [
+            "Descripcion",
+            "EsActivo"
+        ];
+    }
+
+    public async Task<List<Categoria>> GeAllWithFilter()
+    {
+        List<Categoria> list = new();
+        
+        foreach (var item in base.WithFilter())
+        {
+            list.Add(item);
+        }
+
+        return await Task.FromResult(list);
+        // return await base.WithFilter();
     }
 }

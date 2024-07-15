@@ -7,4 +7,5 @@ public interface ICategoriaRepository : IRepository<Categoria>
 {
     Task DeleteCategory(int id);
     Task<CategoriaModel?> GetCategoryById(int id);
+    Task<List<Categoria>> GeAllWithFilter();
 }

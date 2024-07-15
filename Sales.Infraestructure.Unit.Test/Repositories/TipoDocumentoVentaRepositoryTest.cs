@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
@@ -14,12 +15,13 @@ public class TipoDocumentoVentaRepositoryTest : IDisposable
     private readonly SalesContext _context;
     private readonly ITipoDocumentoVentaRepository _tipoDocumentoVentaRepository;
     private TipoDocumentoVenta _tipoDocumentoVenta;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public TipoDocumentoVentaRepositoryTest()
     {
         IDbInMemory context = new DbInMemory();
         _context = context.CreateContext();
-        _tipoDocumentoVentaRepository = new TipoDocumentoVentaRepository(_context);
+        _tipoDocumentoVentaRepository = new TipoDocumentoVentaRepository(_context, _httpContextAccessor);
         _tipoDocumentoVenta = new TipoDocumentoVenta()
         {
             Descripcion = "Factura",

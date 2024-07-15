@@ -1,4 +1,5 @@
-﻿using Sales.Domain.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using Sales.Domain.Entities;
 using Sales.Domain.Interfaces;
 using Sales.Infraestructure.Context;
 using Sales.Infraestructure.Exceptions;
@@ -9,7 +10,8 @@ public class TipoDocumentoVentaRepository : Repository<TipoDocumentoVenta>, ITip
 {
     private readonly SalesContext _context;
 
-    public TipoDocumentoVentaRepository(SalesContext context) : base(context)
+    public TipoDocumentoVentaRepository(SalesContext context, IHttpContextAccessor httpContextAccessor)
+        : base(context, httpContextAccessor)
     {
         _context = context;
     }
@@ -64,5 +66,15 @@ public class TipoDocumentoVentaRepository : Repository<TipoDocumentoVenta>, ITip
         }
 
         return document;
+    }
+    
+    public override string[] FullTextSearchColumns()
+    {
+        return [];
+    }
+
+    public override string[] FilterableColumns()
+    {
+        return [];
     }
 }

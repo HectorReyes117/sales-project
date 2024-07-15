@@ -11,4 +11,5 @@ public interface ICategoriaService
     Task<CategoriaModel?> Get(int id);
     Task<List<Categoria>> GetAll();
     Task DeleteCategory(int id);
+    Task<List<Categoria>> GeAllWithFilter();
 }
