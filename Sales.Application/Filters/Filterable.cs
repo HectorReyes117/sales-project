@@ -100,51 +100,47 @@ public abstract class Filterable<TEntity>
 
                 if (property is not null)
                 {
-                    if (property != null)
-                    {
-                        var parameter = Expression.Parameter(typeof(TEntity), property.Name);
-                        var _property = Expression.Property(parameter, property);
-                        
-                        //Get type of property
-                        var targetType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
-                        
-                        //Convert the request value to the property type 
-                        ConstantExpression _constant = null;
-                        try
-                        {
-                            var value = Convert.ChangeType(request.Query[column].ToString(), targetType);
-                            _constant = Expression.Constant(value, targetType);
-                        }
-                        catch (InvalidCastException e)
-                        {
-                            throw new InvalidCastException($"El tipo de dato del parámetro {property.Name} es incorrecto", e);
-                        }
-                        
-                        // If the property type is nullable, convert the property access to the target type
-                        Expression comparison;
-                        if (property.PropertyType != targetType)
-                        {
-                            var convertedPropertyAccess = Expression.Convert(_property, targetType);
-                            comparison = Expression.Equal(convertedPropertyAccess, _constant);
-                        }
-                        else
-                        {
-                            comparison = Expression.Equal(_property, _constant);
-                        }
+                    var parameter = Expression.Parameter(typeof(TEntity), property.Name);
+                    var _property = Expression.Property(parameter, property);
                     
-                        var predicate = Expression.Lambda<Func<TEntity, bool>>(
-                            comparison, parameter
-                        );
-
-                        var filtered = query.Where(predicate);
-
-                        result = result == null ? filtered : result.Union(filtered);
+                    //Get type of property
+                    var targetType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+                    
+                    //Convert the request value to the property type 
+                    ConstantExpression _constant = null;
+                    try
+                    {
+                        var value = Convert.ChangeType(request.Query[column].ToString(), targetType);
+                        _constant = Expression.Constant(value, targetType);
                     }
+                    catch (InvalidCastException e)
+                    {
+                        throw new InvalidCastException($"El tipo de dato del parámetro {property.Name} es incorrecto", e);
+                    }
+                    
+                    // If the property type is nullable, convert the property access to the target type
+                    Expression comparison;
+                    if (property.PropertyType != targetType)
+                    {
+                        var convertedPropertyAccess = Expression.Convert(_property, targetType);
+                        comparison = Expression.Equal(convertedPropertyAccess, _constant);
+                    }
+                    else
+                    {
+                        comparison = Expression.Equal(_property, _constant);
+                    }
+                
+                    var predicate = Expression.Lambda<Func<TEntity, bool>>(
+                        comparison, parameter
+                    );
+
+                    query = query.Where(predicate);
+                
                 }
             }
         }
         
-        return result;
+        return query;
     }
 
     private IQueryable<TEntity> BuildColumnNotQuery(IQueryable<TEntity> query, HttpRequest request)
