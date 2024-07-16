@@ -1,6 +1,8 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sales.Application.Filters;
 
@@ -84,8 +86,32 @@ public abstract class Filterable<TEntity>
 
     private IQueryable<TEntity> BuildFullTextSearchQuery(IQueryable<TEntity> query, HttpRequest request)
     {
-        // Implementar lógica similar a Laravel
-        return query;
+        if (!request.Query.ContainsKey(KeyOnFullTextSearch())) return query;
+        if (string.IsNullOrEmpty(request.Query[KeyOnFullTextSearch()])) return query;
+        
+        IQueryable<TEntity> result = null!;
+        
+        foreach (var column in FullTextSearchColumns())
+        {
+            PropertyInfo? property = typeof(TEntity).GetProperty(column);
+
+            if (property is not null)
+            {
+                var parameter = Expression.Parameter(typeof(TEntity), column);
+                var propertyExpression = Expression.Property(parameter, property);
+                    
+                var toStringCall = Expression.Call(propertyExpression, "ToString", null, null);
+                var searchTerm = Expression.Constant(request.Query[KeyOnFullTextSearch()].ToString());
+                    
+                var containsCall = Expression.Call(toStringCall, typeof(string).GetMethod("Contains", new[] { typeof(string) })!, searchTerm);
+                var lambda = Expression.Lambda<Func<TEntity, bool>>(containsCall, parameter);
+
+                var filtered = query.Where(lambda);
+                result = result is null ? filtered : result.Union(filtered);
+            }
+        }
+        
+        return result;
     }
 
     private IQueryable<TEntity> BuildFilterColumnsQuery(IQueryable<TEntity> query, HttpRequest request)

@@ -82,7 +82,8 @@ public class CategoriaRepository : Repository<Categoria>, ICategoriaRepository
     {
         return [
             "Descripcion",
-            "EsActivo"
+            "EsActivo",
+            "Id"
         ];
     }
 
