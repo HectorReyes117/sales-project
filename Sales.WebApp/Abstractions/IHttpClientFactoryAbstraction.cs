@@ -3,4 +3,5 @@
 public interface IHttpClientFactoryAbstraction
 {
     HttpClient CreateClient();
+    HttpClient CreateClient(string name);
 }

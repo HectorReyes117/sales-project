@@ -18,7 +18,16 @@ public class HttpClientFactoryAbstraction : IHttpClientFactoryAbstraction
 
     public HttpClient CreateClient()
     {
+        string? httpClientName = _settings?.HttpClientName;
+        ArgumentException.ThrowIfNullOrEmpty(httpClientName);
+        
         HttpClient client = _httpClientFactory.CreateClient(_settings!.HttpClientName ?? "");
+        return client;
+    }
+
+    public HttpClient CreateClient(string name)
+    {
+        HttpClient client = _httpClientFactory.CreateClient(name);
         return client;
     }
 }
